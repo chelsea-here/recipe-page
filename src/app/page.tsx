@@ -52,10 +52,10 @@ export default function Home() {
 
                 <section>
                   <h2 className="font-youngSerif leading-none text-[1.75rem] mb-6 text-brandyRed">Instructions</h2>
-                  <ol className="block pl-7 text-wengeBrown space-y-2 text-base list-decimal">
+                  <ol className="font-outfit block pl-7 marker:text-brandyRed marker:font-bold text-wengeBrown space-y-2 text-base list-decimal">
                     {recipe.instructions.map((instruction) => {
                       return (
-                        <li key={instruction.name} className="pl-4 text-pretty"><strong>{instruction.name}</strong>{instruction.description}</li>
+                        <li key={instruction.name} className="font-outfit pl-4 text-pretty"><strong>{instruction.name}</strong>{instruction.description}</li>
                       )
                     })}
                   </ol>
