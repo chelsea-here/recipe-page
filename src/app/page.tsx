@@ -6,96 +6,103 @@ import { recipes } from "./lib/recipes"
 
 export default function Home() {
   return (
-    <main className="bg-eggshell flex min-h-screen flex-col items-center justify-center ">
-      <div>
-        {recipes.map((recipe) => {
-          return (
-            <article key={recipe.name} className=" bg-white flex flex-col flex-start justify-center w-full md:my-[123px] md:gap-10 md:rounded-3xl md:p-10 md:max-w-[46rem]">
+    <>
+      <main className="bg-eggshell flex min-h-screen flex-col items-center justify-center ">
+        <div>
+          {recipes.map((recipe) => {
+            return (
+              <article key={recipe.name} className=" bg-white flex flex-col flex-start justify-center w-full md:my-[123px] md:gap-10 md:rounded-3xl md:p-10 md:max-w-[46rem]">
                 {/* used img here instead of image in order to prevent the need for importing and allowing me to formulate this as I would if there were multiple recipes. */}
                 <img
-                className=" z-10 w-full object-cover h-[171px] md:h-[18.75rem] md:rounded-xl"
-                src={recipe.photo}
-                alt="photo of recipe"
+                  className=" z-10 w-full object-cover h-[171px] md:h-[18.75rem] md:rounded-xl"
+                  src={recipe.photo}
+                  alt="photo of recipe"
                 />
-              <div className="flex flex-col w-full py-10 px-8 gap-8 md:p-0">
-                <hgroup className="flex flex-col gap-6">
-                  <h1 className="font-youngSerif font-normal leading-none text-darkCharcoal self-stretch text-4xl md:text-[2.5rem]">
-                    {recipe.name}</h1>
-                  <p className="font-outfit leading-normal text-wengeBrown text-base">{recipe.description}</p>
-                </hgroup>
+                <div className="flex flex-col w-full py-10 px-8 gap-8 md:p-0">
+                  <hgroup className="flex flex-col gap-6">
+                    <h1 className="font-youngSerif font-normal leading-none text-darkCharcoal self-stretch text-4xl md:text-[2.5rem]">
+                      {recipe.name}</h1>
+                    <p className="font-outfit leading-normal text-wengeBrown text-base">{recipe.description}</p>
+                  </hgroup>
 
-                <section className="p-6 bg-snow font-outfit md:p-7">
-                  <h3 className="text-darkRaspberry mb-4 font-semibold leading-none font-outfit text-[1.25rem]" >
-                    Preparation Time
-                  </h3>
-                  <ol className="block space-y-[6px] pl-6 text-wengeBrown text-base list-disc">
-                    {recipe.makeTimes.map((makeTime) => {
-                      return (
-                        <li key={makeTime.name} className="text-base pl-4"><span className="inline-block align-middle"><strong>{makeTime.name}</strong>{makeTime.description}</span></li>
-                      )
-                    })}
-                  </ol>
-                </section>
+                  <section className="p-6 bg-snow font-outfit md:p-7">
+                    <h3 className="text-darkRaspberry mb-4 font-semibold leading-none font-outfit text-[1.25rem]" >
+                      Preparation Time
+                    </h3>
+                    <ol className="block space-y-[6px] pl-6 text-wengeBrown text-base list-disc">
+                      {recipe.makeTimes.map((makeTime) => {
+                        return (
+                          <li key={makeTime.name} className="text-base pl-4"><span className="inline-block align-middle"><strong>{makeTime.name}</strong>{makeTime.description}</span></li>
+                        )
+                      })}
+                    </ol>
+                  </section>
 
-                <section>
-                  <h2 className="font-youngSerif leading-none text-[1.75rem] mb-6 text-brandyRed">Ingredients</h2>
-                  <ol className="block pl-[22px] text-wengeBrown space-y-[6px] mb-[1px] text-base list-disc">
-                    {recipe.ingredientList.map((ingredient) => {
-                      return (
-                        <li key={ingredient} className="text-base pl-4"><span className="inline-block align-middle">{ingredient}</span></li>
-                      )
-                    })}
-                  </ol>
-                </section>
+                  <section>
+                    <h2 className="font-youngSerif leading-none text-[1.75rem] mb-6 text-brandyRed">Ingredients</h2>
+                    <ol className="block pl-[22px] text-wengeBrown space-y-[6px] mb-[1px] text-base list-disc">
+                      {recipe.ingredientList.map((ingredient) => {
+                        return (
+                          <li key={ingredient} className="text-base pl-4"><span className="inline-block align-middle">{ingredient}</span></li>
+                        )
+                      })}
+                    </ol>
+                  </section>
 
-                <hr className="h-px bg-whiteCoffee"></hr>
+                  <hr className="h-px bg-whiteCoffee"></hr>
 
-                <section>
-                  <h2 className="font-youngSerif leading-none text-[1.75rem] mb-6 text-brandyRed">Instructions</h2>
-                  <ol className="font-outfit block pl-7 marker:text-brandyRed marker:font-bold text-wengeBrown space-y-2 text-base list-decimal">
-                    {recipe.instructions.map((instruction) => {
-                      return (
-                        <li key={instruction.name} className="font-outfit pl-4 text-pretty"><strong>{instruction.name}</strong>{instruction.description}</li>
-                      )
-                    })}
-                  </ol>
-                </section>
+                  <section>
+                    <h2 className="font-youngSerif leading-none text-[1.75rem] mb-6 text-brandyRed">Instructions</h2>
+                    <ol className="font-outfit block pl-7 marker:text-brandyRed marker:font-bold text-wengeBrown space-y-2 text-base list-decimal">
+                      {recipe.instructions.map((instruction) => {
+                        return (
+                          <li key={instruction.name} className="font-outfit pl-4 text-pretty"><strong>{instruction.name}</strong>{instruction.description}</li>
+                        )
+                      })}
+                    </ol>
+                  </section>
 
-                <hr className="h-px bg-whiteCoffee"></hr>
+                  <hr className="h-px bg-whiteCoffee"></hr>
 
-                <section className="flex flex-col gap-6">
-                  <h2 className="font-youngSerif leading-none text-[1.75rem] text-brandyRed">Nutrition</h2>
-                  <p className="font-outfit leading-normal text-wengeBrown text-base">The table below shows nutritional values per serving without the additional fillings.</p>
-                  <div className="flex flex-col">
-                    {recipe.nutritionFacts.map((nutritionFact, ndx) => {
-                      const isLast = recipe.nutritionFacts.length - 1 === ndx
-                      return (
-                        <div key={nutritionFact.name} >
-                          <div className="flex flex-row w-full gap-3">
-                            <div className="flex-1 flex-col basis-full">
-                              <div className="text-wengeBrown ml-8">{nutritionFact.name}
+                  <section className="flex flex-col gap-6">
+                    <h2 className="font-youngSerif leading-none text-[1.75rem] text-brandyRed">Nutrition</h2>
+                    <p className="font-outfit leading-normal text-wengeBrown text-base">The table below shows nutritional values per serving without the additional fillings.</p>
+                    <div className="flex flex-col">
+                      {recipe.nutritionFacts.map((nutritionFact, ndx) => {
+                        const isLast = recipe.nutritionFacts.length - 1 === ndx
+                        return (
+                          <div key={nutritionFact.name} >
+                            <div className="flex flex-row w-full gap-3">
+                              <div className="flex-1 flex-col basis-full">
+                                <div className="text-wengeBrown ml-8">{nutritionFact.name}
+                                </div>
+                              </div>
+                              <div className="flex-1 flex-col basis-full">
+                                <div className="text-brandyRed font-bold ml-2 mr-8">{nutritionFact.description}
+                                </div>
                               </div>
                             </div>
-                            <div className="flex-1 flex-col basis-full">
-                              <div className="text-brandyRed font-bold ml-2 mr-8">{nutritionFact.description}
-                              </div>
-                            </div>
+                            {/* Proud of this one! */}
+                            {!isLast && <hr className="flex flex-row w-full h-px bg-whiteCoffee mt-3 mb-3"></hr>}
                           </div>
-                          {/* Proud of this one! */}
-                          {!isLast && <hr className="flex flex-row w-full h-px bg-whiteCoffee mt-3 mb-3"></hr>}
-                        </div>
-                      )
-                    })}
-                  </div>
-                </section>
+                        )
+                      })}
+                    </div>
+                  </section>
 
-              </div>
-            </article>
-          )
-        })}
-      </div>
-
-    </main>
+                </div>
+              </article>
+            )
+          })}
+        </div>
+      </main>
+      <footer id="attribution" className="mt-2 left-0 right-0 justify-self-center">
+        <p className="text-white text-center text-[0.6875rem]">Challenge by <a className="text-blue" href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+        </p>
+        <p className="text-white text-center text-[0.6875rem]">Coded by <a className="text-blue" href="#">Chelsea Anne Livingston Cruz</a>.
+        </p>
+      </footer>
+    </>
   )
 };
 
