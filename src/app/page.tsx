@@ -1,113 +1,146 @@
+'use client'
+
 import Image from "next/image";
+
+import { recipes } from "./lib/recipes"
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <main className="bg-eggshell flex min-h-screen flex-col items-center justify-center ">
+      <div>
+        {recipes.map((recipe) => {
+          return (
+            <article key={recipe.name} className=" bg-white flex flex-col flex-start justify-center w-full md:my-[123px] md:gap-10 md:rounded-3xl md:p-10 md:max-w-[46rem]">
+                {/* used img here instead of image in order to prevent the need for importing and allowing me to formulate this as I would if there were multiple recipes. */}
+                <img
+                className=" z-10 w-full object-cover h-[171px] md:h-[18.75rem] md:rounded-xl"
+                src={recipe.photo}
+                alt="photo of recipe"
+                />
+              <div className="flex flex-col w-full py-10 px-8 gap-8 md:p-0">
+                <hgroup className="flex flex-col gap-6">
+                  <h1 className="font-youngSerif font-normal leading-none text-darkCharcoal self-stretch text-4xl md:text-[2.5rem]">
+                    {recipe.name}</h1>
+                  <p className="font-outfit leading-normal text-wengeBrown text-base">{recipe.description}</p>
+                </hgroup>
+
+                <section className="p-6 bg-snow font-outfit md:p-7">
+                  <h3 className="text-darkRaspberry mb-4 font-semibold leading-none font-outfit text-[1.25rem]" >
+                    Preparation Time
+                  </h3>
+                  <ol className="block space-y-[6px] pl-6 text-wengeBrown text-base list-disc">
+                    {recipe.makeTimes.map((makeTime) => {
+                      return (
+                        <li key={makeTime.name} className="text-base pl-4"><span className="inline-block align-middle"><strong>{makeTime.name}</strong>{makeTime.description}</span></li>
+                      )
+                    })}
+                  </ol>
+                </section>
+
+                <section>
+                  <h2 className="font-youngSerif leading-none text-[1.75rem] mb-6 text-brandyRed">Ingredients</h2>
+                  <ol className="block pl-[22px] text-wengeBrown space-y-[6px] mb-[1px] text-base list-disc">
+                    {recipe.ingredientList.map((ingredient) => {
+                      return (
+                        <li key={ingredient} className="text-base pl-4"><span className="inline-block align-middle">{ingredient}</span></li>
+                      )
+                    })}
+                  </ol>
+                </section>
+
+                <hr className="h-px bg-whiteCoffee"></hr>
+
+                <section>
+                  <h2 className="font-youngSerif leading-none text-[1.75rem] mb-6 text-brandyRed">Instructions</h2>
+                  <ol className="block pl-7 text-wengeBrown space-y-2 text-base list-decimal">
+                    {recipe.instructions.map((instruction) => {
+                      return (
+                        <li key={instruction.name} className="pl-4 text-pretty"><strong>{instruction.name}</strong>{instruction.description}</li>
+                      )
+                    })}
+                  </ol>
+                </section>
+
+                <hr className="h-px bg-whiteCoffee"></hr>
+
+                <section className="flex flex-col gap-6">
+                  <h2 className="font-youngSerif leading-none text-[1.75rem] text-brandyRed">Nutrition</h2>
+                  <p className="font-outfit leading-normal text-wengeBrown text-base">The table below shows nutritional values per serving without the additional fillings.</p>
+                  <div className="flex flex-col">
+                    {recipe.nutritionFacts.map((nutritionFact, ndx) => {
+                      const isLast = recipe.nutritionFacts.length - 1 === ndx
+                      return (
+                        <div key={nutritionFact.name} >
+                          <div className="flex flex-row w-full gap-3">
+                            <div className="flex-1 flex-col basis-full">
+                              <div className="text-wengeBrown ml-8">{nutritionFact.name}
+                              </div>
+                            </div>
+                            <div className="flex-1 flex-col basis-full">
+                              <div className="text-brandyRed font-bold ml-2 mr-8">{nutritionFact.description}
+                              </div>
+                            </div>
+                          </div>
+                          {/* Proud of this one! */}
+                          {!isLast && <hr className="flex flex-row w-full h-px bg-whiteCoffee mt-3 mb-3"></hr>}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </section>
+
+              </div>
+            </article>
+          )
+        })}
       </div>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
     </main>
-  );
-}
+  )
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Instructions
+
+// Beat the eggs: In a bowl, beat the eggs with a pinch of salt and pepper until they are well mixed.
+// You can add a tablespoon of water or milk for a fluffier texture.
+
+// Heat the pan: Place a non - stick frying pan over medium heat and add butter or oil.
+
+// Cook the omelette: Once the butter is melted and bubbling, pour in the eggs.Tilt the pan to ensure
+// the eggs evenly coat the surface.
+
+// Add fillings(optional): When the eggs begin to set at the edges but are still slightly runny in the
+// middle, sprinkle your chosen fillings over one half of the omelette.
+
+// Fold and serve: As the omelette continues to cook, carefully lift one edge and fold it over the
+// fillings. Let it cook for another minute, then slide it onto a plate.
+
+// Enjoy: Serve hot, with additional salt and pepper if needed.
+
+// Nutrition
+
+// The table below shows nutritional values per serving without the additional fillings.
+
+// Calories
+// 277kcal
+
+// Carbs
+// 0g
+
+// Protein
+// 20g
+
+// Fat
+// 22g */
